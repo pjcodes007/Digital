@@ -124,6 +124,12 @@ def main():
     reconstructed = np.array(decoded, dtype=np.uint8)
 
     reconstructed = reconstructed.reshape(image.shape)
+    enlarged = cv2.resize(
+    reconstructed,
+    (320, 320),
+    interpolation=cv2.INTER_NEAREST
+)
+
 
     cv2.imwrite("output/arithmetic_reconstructed.jpg",reconstructed)
 
