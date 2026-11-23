@@ -25,4 +25,4 @@
 ![Filtering Results](output/huffman_reconstructed.png)
 
 ### Arithmetic Encoding Reconstruction
-![Arithmetic Reconstruction](output/arithmetic_reconstructed.jpg)
+![Arithmetic Reconstruction](output/arithmetic_reconstructed.png)
