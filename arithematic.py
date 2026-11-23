@@ -131,7 +131,7 @@ def main():
 )
 
 
-    cv2.imwrite("output/arithmetic_reconstructed.jpg",reconstructed)
+    cv2.imwrite("output/arithmetic_reconstructed.jpg",enlarged)
 
     if np.array_equal(image, reconstructed):
         print("Reconstruction successful!")
