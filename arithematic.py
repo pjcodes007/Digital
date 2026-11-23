@@ -85,32 +85,20 @@ def arithmetic_decoding(encoded_value, cumulative, length):
 def main():
 
     image = cv2.imread("input/image1.png", cv2.IMREAD_GRAYSCALE)
-    image = cv2.resize(image, (8, 8), interpolation=cv2.INTER_NEAREST)
-    print("Image loaded:", image.shape, flush=True)
-
-    pixels, freq = calculate_frequency(image)
-    print("Frequency calculated:", freq, flush=True)
-
-    cumulative = calculate_cumulative(freq)
-    print("Cumulative intervals calculated", flush=True)
-
-    encoded = arithmetic_encoding(pixels, cumulative)
-    print("Encoding completed", flush=True)
-
-    decoded = arithmetic_decoding(encoded, cumulative, len(pixels))
-    print("Decoding completed:", len(decoded), flush=True)
 
     if image is None:
         print("Image not found!")
         return
 
-    pixels, freq = calculate_frequency(image)
+    image = cv2.resize(image, (8, 8), interpolation=cv2.INTER_NEAREST)
 
+    print("Image loaded:", image.shape)
+
+    pixels, freq = calculate_frequency(image)
     cumulative = calculate_cumulative(freq)
 
     encoded = arithmetic_encoding(pixels, cumulative)
-
-    print("Encoded value:", encoded)
+    print("Encoding completed")
 
     decoded = arithmetic_decoding(encoded, cumulative, len(pixels))
 
@@ -122,21 +110,20 @@ def main():
         return
 
     reconstructed = np.array(decoded, dtype=np.uint8)
-
     reconstructed = reconstructed.reshape(image.shape)
-    enlarged = cv2.resize(
-    reconstructed,
-    (320, 320),
-    interpolation=cv2.INTER_NEAREST
-)
-
-
-    cv2.imwrite("output/arithmetic_reconstructed.jpg",enlarged)
 
     if np.array_equal(image, reconstructed):
         print("Reconstruction successful!")
     else:
         print("Reconstruction does not match!")
+
+    enlarged = cv2.resize(
+        reconstructed,
+        (320, 320),
+        interpolation=cv2.INTER_NEAREST
+    )
+
+    cv2.imwrite("output/arithmetic_reconstructed.png", enlarged)
 
     plt.figure(figsize=(8, 4))
 
@@ -146,7 +133,7 @@ def main():
     plt.axis("off")
 
     plt.subplot(1, 2, 2)
-    plt.imshow(reconstructed, cmap="gray", vmin=0, vmax=255)
+    plt.imshow(enlarged, cmap="gray", vmin=0, vmax=255)
     plt.title("Reconstructed Image")
     plt.axis("off")
 
